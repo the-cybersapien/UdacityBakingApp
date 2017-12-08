@@ -27,7 +27,7 @@
             android:name=".activity.RecipeDetailActivity"
             android:label="@string/title_activity_recipe_detail"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.StepDetailActivity"
             android:label="@string/title_activity_step_detail"
