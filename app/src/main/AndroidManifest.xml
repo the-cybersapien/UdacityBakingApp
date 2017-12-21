@@ -38,15 +38,18 @@
                 android:value="xyz.cybersapien.miriamslittlebakery.activity.RecipeDetailActivity" />
         </activity>
 
-        <receiver android:name=".fragment.RecipeListProvider">
+        <receiver android:name=".widget.RecipeListWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/recipe_list_provider_info" />
+                android:resource="@xml/recipe_list_widget_provider_info" />
         </receiver>
+        <service
+            android:name=".widget.IngredientViewService"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

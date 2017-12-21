@@ -10,3 +10,5 @@ const val TYPE_STEP = 1000
 const val TYPE_INGREDIENT = 1001
 const val STEP_ID = "step_id"
 const val INGREDIENT_STEP = -200
+const val SAVED_RECIPE = "widget_recipe"
+const val PACKAGE_NAME = "xyz.cybersapien.miriamslittlebakery"

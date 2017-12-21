@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Miriam\'s Little Bakery</string>
-    <string name="action_settings">Settings</string>
+    <string name="widget_save">Save For Widget</string>
     <string name="error_data">Error getting data!</string>
     <string name="tap_here">Tap here to try again!</string>
     <string name="loading">Loading&#8230;</string>
@@ -9,6 +9,6 @@
     <string name="step">%d. %s</string>
     <string name="title_activity_step_detail">StepDetailActivity</string>
     <string name="no_video_available">No Video Available</string>
-    <string name="appwidget_text">Ingredients Widget</string>
     <string name="add_widget">Add widget</string>
+    <string name="no_recipe">No Recipe Selected</string>
 </resources>

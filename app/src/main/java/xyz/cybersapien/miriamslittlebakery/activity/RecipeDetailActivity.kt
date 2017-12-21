@@ -1,9 +1,13 @@
 package xyz.cybersapien.miriamslittlebakery.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_recipe_detail.*
 import kotlinx.android.synthetic.main.content_recipe_detail.*
 import xyz.cybersapien.miriamslittlebakery.R
@@ -13,15 +17,16 @@ import xyz.cybersapien.miriamslittlebakery.fragment.RecipeStepsListFragment
 import xyz.cybersapien.miriamslittlebakery.fragment.StepDetailFragment
 import xyz.cybersapien.miriamslittlebakery.model.Recipe
 import xyz.cybersapien.miriamslittlebakery.utils.*
+import xyz.cybersapien.miriamslittlebakery.widget.RecipeListWidgetProvider
 
 class RecipeDetailActivity : AppCompatActivity(), OnStepClick {
 
     val RECIPE_LIST_TAG = "Recipe_list_fragment"
     val STEP_DETAIL_TAG = "step_detail_fragment"
     val LOG_TAG = "RecipeDetailActivity"
-    lateinit var currentRecipe: Recipe
-    var isTwoPane = false
-    lateinit var recipeListFragment: RecipeStepsListFragment
+    private lateinit var currentRecipe: Recipe
+    private var isTwoPane = false
+    private lateinit var recipeListFragment: RecipeStepsListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,7 @@ class RecipeDetailActivity : AppCompatActivity(), OnStepClick {
         isTwoPane = step_detail_fragment_container != null
 
         if (isTwoPane) {
-
+            replaceStepFragment(INGREDIENT_STEP)
         }
     }
 
@@ -54,6 +59,29 @@ class RecipeDetailActivity : AppCompatActivity(), OnStepClick {
         super.onSaveInstanceState(outState)
         outState.putParcelable(SELECTED_RECIPE, currentRecipe)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_recipe_detail, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
+                R.id.action_save_widget -> {
+                    val sharedPreference = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+                    val jsonRecipe = Gson().toJson(currentRecipe)
+                    sharedPreference.edit()
+                            .putString(SAVED_RECIPE, jsonRecipe)
+                            .apply()
+                    val intent = Intent(this, RecipeListWidgetProvider::class.java)
+                    intent.putExtra(SAVED_RECIPE, currentRecipe)
+                    intent.action = Context.APPWIDGET_SERVICE
+                    startService(intent)
+                    true
+                }
+                else ->
+                    super.onOptionsItemSelected(item)
+            }
 
     override fun stepClicked(stepId: Int) {
         if (isTwoPane)
