@@ -49,6 +49,7 @@
         </receiver>
         <service
             android:name=".widget.IngredientViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
             android:label="@string/app_name" />
     </application>
 

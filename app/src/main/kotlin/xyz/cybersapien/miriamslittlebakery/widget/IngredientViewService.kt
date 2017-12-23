@@ -26,13 +26,9 @@ class IngredientViewService : RemoteViewsService() {
         private var ingredientsList: ArrayList<Ingredient>? = null
 
         override fun onCreate() {
-            var recipe = intent.getParcelableExtra<Recipe?>(SAVED_RECIPE)
-            if (recipe == null) {
-                val prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
-                recipe = Gson().fromJson(prefs.getString(SAVED_RECIPE, null))
-            }
-            ingredientsList = recipe?.ingredients
-            Log.d("IngredientView", "${ingredientsList?.toString()}")
+            val prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+            val recipe = Gson().fromJson<Recipe>(prefs.getString(SAVED_RECIPE, null))
+            ingredientsList = recipe.ingredients
         }
 
         override fun getLoadingView(): RemoteViews? {
@@ -53,7 +49,6 @@ class IngredientViewService : RemoteViewsService() {
         override fun getViewAt(position: Int): RemoteViews {
             val view = RemoteViews(PACKAGE_NAME, R.layout.item_widget_ingredient)
             val ingredient = ingredientsList?.get(position)
-            Log.d("ViewService", ingredient.toString())
             view.setTextViewText(R.id.quantity_text_view, "${ingredient?.quantity}")
             view.setTextViewText(R.id.quantity_type_text_view, "${ingredient?.measure}")
             view.setTextViewText(R.id.ingredient_name_text_view, "${ingredient?.ingredient}")

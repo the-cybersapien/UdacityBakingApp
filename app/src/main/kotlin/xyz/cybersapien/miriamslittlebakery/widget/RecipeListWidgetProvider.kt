@@ -33,12 +33,6 @@ class RecipeListWidgetProvider : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    override fun onReceive(context: Context?, intent: Intent) {
-        super.onReceive(context, intent)
-        recipe = intent.getParcelableExtra(SAVED_RECIPE)
-        Log.d("WidgetProvider", recipe.toString())
-    }
-
     companion object {
 
         var recipe: Recipe? = null
@@ -50,7 +44,7 @@ class RecipeListWidgetProvider : AppWidgetProvider() {
             val prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
             val recipeString = prefs.getString(SAVED_RECIPE, null)
 
-            if (recipe == null && recipeString != null) {
+            if (recipeString != null) {
                 recipe = Gson().fromJson(recipeString)
             }
 

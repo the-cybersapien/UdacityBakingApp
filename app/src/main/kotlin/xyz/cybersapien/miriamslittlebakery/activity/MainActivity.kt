@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import com.android.volley.Response
 import com.google.gson.GsonBuilder
@@ -16,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import xyz.cybersapien.miriamslittlebakery.R
 import xyz.cybersapien.miriamslittlebakery.adapter.RecipesAdapter
 import xyz.cybersapien.miriamslittlebakery.model.Recipe
+import xyz.cybersapien.miriamslittlebakery.utils.SELECTED_RECIPE
 import xyz.cybersapien.miriamslittlebakery.utils.fromJson
 import xyz.cybersapien.miriamslittlebakery.utils.getRecipeData
-import xyz.cybersapien.miriamslittlebakery.utils.SELECTED_RECIPE
 import java.io.IOException
 
 class MainActivity : AppCompatActivity(), RecipesAdapter.OnRecipeItemClick {

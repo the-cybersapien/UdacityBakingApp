@@ -1,5 +1,7 @@
 package xyz.cybersapien.miriamslittlebakery.activity
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +20,7 @@ import xyz.cybersapien.miriamslittlebakery.fragment.StepDetailFragment
 import xyz.cybersapien.miriamslittlebakery.model.Recipe
 import xyz.cybersapien.miriamslittlebakery.utils.*
 import xyz.cybersapien.miriamslittlebakery.widget.RecipeListWidgetProvider
+
 
 class RecipeDetailActivity : AppCompatActivity(), OnStepClick {
 
@@ -73,10 +76,13 @@ class RecipeDetailActivity : AppCompatActivity(), OnStepClick {
                     sharedPreference.edit()
                             .putString(SAVED_RECIPE, jsonRecipe)
                             .apply()
+
                     val intent = Intent(this, RecipeListWidgetProvider::class.java)
-                    intent.putExtra(SAVED_RECIPE, currentRecipe)
-                    intent.action = Context.APPWIDGET_SERVICE
-                    startService(intent)
+                    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                    val ids = AppWidgetManager.getInstance(application)
+                            .getAppWidgetIds(ComponentName(application, RecipeListWidgetProvider::class.java))
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                    sendBroadcast(intent)
                     true
                 }
                 else ->
